@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{ %5p }{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue}${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <RollingFile name="DAILY_LOG" filename="logs/bot-info.log" immediateFlush="true"
+                     filePattern="logs/%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+        <RollingFile name="DAILY_ERROR_LOG" filename="logs/bot-error.log" immediateFlush="true"
+                     filePattern="logs/%d{yyyy-MM-dd}-error.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.example.log4j2" level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender" level="debug"/>
+            <AppenderRef ref="DAILY_LOG" />
+            <AppenderRef ref="DAILY_ERROR_LOG" level="error"/>
+        </Root>
+    </Loggers>
+</Configuration>
