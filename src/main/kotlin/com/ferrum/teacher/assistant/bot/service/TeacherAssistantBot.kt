@@ -19,7 +19,7 @@ class TeacherAssistantBot : TelegramLongPollingBot() {
     }
 
     override fun getBotToken(): String {
-        return "1236603026:AAFxrmfu79p1sLRLAp8PSkZeI0KMUATHyCw"
+        return ""
     }
 
     override fun onUpdateReceived(p0: Update?) {
