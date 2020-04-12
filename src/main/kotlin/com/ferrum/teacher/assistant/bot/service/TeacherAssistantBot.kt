@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Update
+import org.telegram.telegrambots.meta.bots.AbsSender
 
 @Component
 class TeacherAssistantBot : TelegramLongPollingBot() {
@@ -28,9 +30,22 @@ class TeacherAssistantBot : TelegramLongPollingBot() {
         return telegramBotToken
     }
 
-    override fun onUpdateReceived(p0: Update?) {
-        logger.info("Update received")
-        logger.error("Oops")
+    override fun onUpdateReceived(update: Update) {
+        // check whether command was received
+        if (update.hasMessage() && update.message.hasText() && update.message.text.startsWith("/")) {
+            val command = update.message.text.substring(1)
+
+        }
+
+        logger.info(update.message.text)
+        logger.info("UserId: " + update.message.chatId)
+
+        val response = SendMessage()
+
+        response.chatId = update.message.chatId.toString()
+        response.text = "Received ${update.message.text}"
+
+        execute(response)
     }
 
     companion object {

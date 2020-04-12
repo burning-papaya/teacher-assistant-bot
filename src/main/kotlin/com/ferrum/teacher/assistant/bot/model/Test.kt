@@ -21,6 +21,9 @@ class Test : BaseIntEntity() {
     @Column(name = "author_name")
     var authorName: String? = null
 
+    @Column(name = "code")
+    var code: String? = null
+
     @Column(name = "is_deleted", columnDefinition = "BIT")
     var deleted: Boolean = false
 
