@@ -9,4 +9,6 @@ import com.ferrum.teacher.assistant.bot.model.UserState
 import org.springframework.data.repository.CrudRepository
 
 interface UserStateRepository : CrudRepository<UserState, Int> {
+
+    fun findByUserId (userId: String) : UserState?
 }
