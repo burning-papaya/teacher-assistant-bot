@@ -13,6 +13,7 @@ import com.ferrum.teacher.assistant.bot.repository.TestRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.telegram.telegrambots.meta.api.methods.ParseMode
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Update
 
@@ -60,6 +61,7 @@ class TestService
 
         // prepare reply
         val reply = SendMessage()
+        reply.enableMarkdown(true)
         reply.text = "Тест: **${newTest.name}**\nВопрос 1: (Введите текст вопроса. Не более 500 символов)"
         reply.chatId = userId
 

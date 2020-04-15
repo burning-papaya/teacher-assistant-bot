@@ -42,10 +42,11 @@ class QuestionService
         // get test
         val test = testService.getTest(sessionData.currentTest!!.testId!!) ?: throw RuntimeException("Goto test creation")
         // cut the question text if needed
-        val text = if (update.message.text.length > 500) update.message.text.substring(0, 501) else update.message.text
+        val questionText = if (update.message.text.length > 500) update.message.text.substring(0, 501) else update.message.text
         // initialize question entity and save it
-        var question = Question(test, text)
+        var question = Question(test, questionText)
         question = questionRepository.save(question)
+
         // set question in session data and increment question counter
         sessionData.currentTest!!.questionId = question.id
         if (sessionData.currentTest!!.questionCount == null)
@@ -54,7 +55,7 @@ class QuestionService
             sessionData.currentTest!!.questionCount!!.inc()
 
         // save session for user
-        sessionService.saveUserState(userId, State.NEW_QUESTION, sessionData)
+        sessionService.saveUserState(userId, State.CORRECT_CHOICE, sessionData)
 
         // prepare reply
         val reply = SendMessage()

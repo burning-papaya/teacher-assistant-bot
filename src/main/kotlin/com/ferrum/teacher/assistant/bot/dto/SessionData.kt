@@ -18,5 +18,6 @@ data class SessionData (
 data class CurrentTestDto (
         @JsonProperty("test_id") var testId: Int? = null,
         @JsonProperty("question_id") var questionId: Int? = null,
-        @JsonProperty("question_count") var questionCount: Int? = null
+        @JsonProperty("question_count") var questionCount: Int? = null,
+        @JsonProperty("choice_count") var choiceCount: Int? = null
 )
