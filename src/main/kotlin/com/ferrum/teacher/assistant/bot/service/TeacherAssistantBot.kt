@@ -19,7 +19,8 @@ import org.telegram.telegrambots.meta.api.objects.Update
 class TeacherAssistantBot
 @Autowired constructor(
         private val sessionService: UserSessionService,
-        private val testService: TestService
+        private val testService: TestService,
+        private val questionService: QuestionService
 ) : TelegramLongPollingBot() {
 
     @Value("\${telegram.bot.name}")
@@ -58,20 +59,13 @@ class TeacherAssistantBot
             return
         }
 
-        if (state == State.NEW_TEST) {
-            val reply = testService.createTest(update)
-            execute(reply)
+        val reply = when (state) {
+            State.NEW_TEST -> testService.createTest(update)
+            State.NEW_QUESTION -> questionService.createQuestion(update)
+            else -> defaultReply(update)
         }
 
-        logger.info(update.message.text)
-        logger.info("UserId: " + update.message.chatId)
-
-        val response = SendMessage()
-
-        response.chatId = update.message.chatId.toString()
-        response.text = "Received ${update.message.text}"
-
-        execute(response)
+        execute(reply)
     }
 
     fun defaultReply(update: Update) : SendMessage {

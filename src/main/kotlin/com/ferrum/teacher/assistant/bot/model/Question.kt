@@ -9,7 +9,10 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "question")
-class Question : BaseIntEntity() {
+class Question() : BaseIntEntity() {
+
+    @Column(name = "text")
+    var text: String? = null
 
     @Column(name = "correct_answer")
     var correctAnswer: String? = null
@@ -20,4 +23,9 @@ class Question : BaseIntEntity() {
     @JoinColumn(name = "test_id")
     @ManyToOne(fetch = FetchType.LAZY)
     var test: Test? = null
+
+    constructor(test: Test, text: String) : this() {
+        this.test = test
+        this.text = text
+    }
 }
