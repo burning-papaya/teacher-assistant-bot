@@ -11,7 +11,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "test")
-class Test : BaseIntEntity() {
+class Test() : BaseIntEntity() {
 
     var name: String? = null
 
@@ -29,4 +29,12 @@ class Test : BaseIntEntity() {
 
     @Column(name = "is_completed", columnDefinition = "BIT")
     var completed: Boolean = false
+
+    constructor(name: String, authorId: String, authorName: String) : this() {
+        this.name = name
+        this.authorId = authorId
+        this.authorName = authorName
+        this.deleted = false
+        this.completed = false
+    }
 }

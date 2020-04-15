@@ -21,9 +21,9 @@ class UserStateService
         return userStateRepository.findByUserId(userId)?.state ?: State.MAIN_MENU
     }
 
-    fun saveUserState (userId: String, state: State) : UserState{
-        val userState = UserState()
-        userState.userId = userId
+    fun saveUserState (userId: String, state: State) : UserState {
+        val userState = userStateRepository.findByUserId(userId) ?: UserState(userId)
+
         userState.state = state
 
         return userStateRepository.save(userState)

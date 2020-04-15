@@ -58,6 +58,11 @@ class TeacherAssistantBot
             return
         }
 
+        if (state == State.NEW_TEST) {
+            val reply = testService.createTest(update)
+            execute(reply)
+        }
+
         logger.info(update.message.text)
         logger.info("UserId: " + update.message.chatId)
 

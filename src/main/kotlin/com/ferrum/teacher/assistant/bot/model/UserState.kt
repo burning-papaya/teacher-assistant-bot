@@ -10,7 +10,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "user_state")
-class UserState {
+class UserState() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +22,8 @@ class UserState {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "state")
     var state: State? = null
+
+    constructor (userId: String) : this() {
+        this.userId = userId
+    }
 }
