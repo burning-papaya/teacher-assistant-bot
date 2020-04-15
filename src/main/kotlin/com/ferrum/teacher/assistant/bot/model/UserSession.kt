@@ -9,8 +9,8 @@ import com.ferrum.teacher.assistant.bot.constants.State
 import javax.persistence.*
 
 @Entity
-@Table(name = "user_state")
-class UserState() {
+@Table(name = "user_session")
+class UserSession() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,9 @@ class UserState() {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "state")
     var state: State? = null
+
+    @Column(name = "data")
+    var sessionData: String? = null
 
     constructor (userId: String) : this() {
         this.userId = userId

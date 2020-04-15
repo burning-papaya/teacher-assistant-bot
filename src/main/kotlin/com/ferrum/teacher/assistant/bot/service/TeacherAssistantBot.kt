@@ -18,7 +18,7 @@ import org.telegram.telegrambots.meta.api.objects.Update
 @Component
 class TeacherAssistantBot
 @Autowired constructor(
-        private val userStateService: UserStateService,
+        private val sessionService: UserSessionService,
         private val testService: TestService
 ) : TelegramLongPollingBot() {
 
@@ -42,7 +42,7 @@ class TeacherAssistantBot
         }
 
         // get user's state
-        val state = userStateService.getUserState(update.message?.chatId?.toString() ?: "")
+        val state = sessionService.getUserState(update.message?.chatId?.toString() ?: "")
 
         // check whether command was received
         if (update.hasMessage() && update.message.hasText() && update.message.text.startsWith("/")) {
@@ -75,7 +75,7 @@ class TeacherAssistantBot
     }
 
     fun defaultReply(update: Update) : SendMessage {
-        userStateService.saveUserState(update.message!!.chatId!!.toString(), State.MAIN_MENU)
+        sessionService.saveUserState(update.message!!.chatId!!.toString(), State.MAIN_MENU)
 
         val reply = SendMessage()
         reply.enableMarkdown(true)

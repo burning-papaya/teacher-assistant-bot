@@ -5,10 +5,10 @@
  */
 package com.ferrum.teacher.assistant.bot.repository
 
-import com.ferrum.teacher.assistant.bot.model.UserState
+import com.ferrum.teacher.assistant.bot.model.UserSession
 import org.springframework.data.repository.CrudRepository
 
-interface UserStateRepository : CrudRepository<UserState, Int> {
+interface UserSessionRepository : CrudRepository<UserSession, Int> {
 
-    fun findByUserId (userId: String) : UserState?
+    fun findByUserId (userId: String) : UserSession?
 }

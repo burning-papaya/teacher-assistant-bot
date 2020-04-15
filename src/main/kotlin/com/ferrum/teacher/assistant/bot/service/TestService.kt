@@ -17,7 +17,7 @@ import org.telegram.telegrambots.meta.api.objects.Update
 class TestService
 @Autowired constructor(
         private val testRepository: TestRepository,
-        private val stateService: UserStateService
+        private val sessionService: UserSessionService
 ){
 
     fun newTest (update: Update) : SendMessage {
@@ -27,7 +27,7 @@ class TestService
         reply.chatId = update.message.chatId.toString()
 
         // update user's state
-        stateService.saveUserState(reply.chatId, State.NEW_TEST)
+        sessionService.saveUserState(reply.chatId, State.NEW_TEST)
 
         return reply
     }
@@ -54,8 +54,8 @@ class TestService
         reply.chatId = update.message.chatId.toString()
 
         // update user's state
-        stateService.saveUserState(reply.chatId, State.NEW_QUESTION)
-        
+        sessionService.saveUserState(reply.chatId, State.NEW_QUESTION)
+
         return reply
     }
 }
