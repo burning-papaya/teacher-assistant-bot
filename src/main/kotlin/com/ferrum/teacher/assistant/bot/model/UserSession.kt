@@ -6,6 +6,8 @@
 package com.ferrum.teacher.assistant.bot.model
 
 import com.ferrum.teacher.assistant.bot.constants.State
+import com.ferrum.teacher.assistant.bot.dto.SessionData
+import com.ferrum.teacher.assistant.bot.model.converter.SessionDataConverter
 import javax.persistence.*
 
 @Entity
@@ -23,8 +25,9 @@ class UserSession() {
     @Column(name = "state")
     var state: State? = null
 
-    @Column(name = "data")
-    var sessionData: String? = null
+    @Convert(converter = SessionDataConverter::class)
+    @Column(name = "data", columnDefinition = "varchar(500)")
+    var sessionData: SessionData? = null
 
     constructor (userId: String) : this() {
         this.userId = userId

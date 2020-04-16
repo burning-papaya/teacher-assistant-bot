@@ -62,6 +62,8 @@ class TeacherAssistantBot
         val reply = when (state) {
             State.NEW_TEST -> testService.createTest(update)
             State.NEW_QUESTION  -> questionService.createQuestion(update)
+            State.CORRECT_CHOICE -> questionService.addChoiceToQuestion(update)
+            State.NEW_CHOICE -> questionService.addChoiceToQuestion(update)
             else -> defaultReply(update)
         }
 

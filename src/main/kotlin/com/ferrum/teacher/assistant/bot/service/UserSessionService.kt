@@ -31,10 +31,7 @@ class UserSessionService
         val userState = userSessionRepository.findByUserId(userId) ?: UserSession(userId)
 
         userState.state = state
-
-        if (sessionData != null){
-            userState.sessionData = jacksonObjectMapper().writeValueAsString(sessionData)
-        }
+        userState.sessionData = sessionData
 
         return userSessionRepository.save(userState)
     }
